@@ -34,6 +34,7 @@ class AppFixtures extends Fixture
                 ->setHTprice($faker->randomFloat(2, 1, 7999))
                 ->setVisible($faker->boolean(90))
                 ->setDiscount($faker->boolean(7))
+                ->setDateCreated($faker->dateTimeBetween('-3 years'))
                 ->setCategory(($categories[$faker->numberBetween(0, count($categories) - 1)]));
 
             $manager->persist($product);

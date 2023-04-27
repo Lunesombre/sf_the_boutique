@@ -13,6 +13,13 @@
 - On aura les pages suivantes :
 
   - Accueil  => Liste des produits en promotion
+    
+    - mise à jour de la consigne : Sur ma page d'accueil je veux les produits :
+        - visible
+        - en promotion
+        - créés il y a moins d'un an
+        - ordonnés par prix croissant
+        - Limités à 5
 
   - Produits => Liste de tous les produits
 
