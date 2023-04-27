@@ -13,7 +13,14 @@ class IndexController extends AbstractController
     #[Route('/', name: 'app_index')]
     public function index(ProductRepository $productRepository, CategoryRepository $categoryRepository): Response
     {
-        $products=$productRepository->findAll();
+        $products = $productRepository->findBy(
+            [
+                'visible' => true,
+                'discount' => true,
+            ],
+            ['HTprice' => 'ASC'],
+            5
+        );
         $categories = $categoryRepository->findAll();
 
 
