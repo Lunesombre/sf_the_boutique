@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ product.name }}
+{% endblock %}
+
+{% block body %}
+
+	<div class="container-fluid bg-secondary p-5">
+		<div class="bg-warning-subtle px-5 pb-5 d-flex flex-column">
+			<h1 class="text-center p-3">{{ product.name|capitalize }}</h1>
+			<div class="mx-auto text-center w-50 p-3">{{ product.description }}</div>
+			<div class="mx-auto text-end w-50 p-2 px-3">{{ product.name|capitalize }}
+				est un article de la catégorie
+				{{ product.category.name }}.
+			</div>
+			<div class="text-center">
+				{% if product.visible == false %}
+					Désolé, ce produit n'est actuellement pas disponible à la vente.
+				{% elseif product.discount %}
+					Produit en solde ! Profitez pour une durée limitée d'un prix réduit de
+					<span class="text-light bg-success">{{ product.getDiscountedPrice() }}€</span>
+					au lieu de
+					<span class="text-light bg-danger">{{ product.getFullPrice() }}€</span>
+				{% else %}
+					Prix :
+					{{ product.getFullPrice() }}€.
+				{% endif %}
+			</div>
+            <div><a class="text-decoration-none text-dark" href="{{ path('products_list') }}">Retour à la liste des produits</a></div>
+		</div>
+	</div>
+{% endblock %}

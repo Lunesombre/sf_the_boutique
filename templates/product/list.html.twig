@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des articles disponibles
+{% endblock %}
+
+{% block body %}
+
+	<div class="container-fluid bg-secondary d-flex">
+		<div class="col-2 bg-secondary-subtle m-2 text-center position-absolute top-25">
+			<h2 class="py-2 px-3">Catégories de produits</h2>
+			<div class="d-flex flex-column p-3 text-start overflow-hidden">
+				{% for category in categories %}
+					<h4>
+						{{ category.name|upper }}
+					</h4>
+				{% endfor %}
+			</div>
+		</div>
+		<div class="col-10" style="margin-left: 17rem;">
+			<h1 class="py-2 px-3 text-light">Articles disponibles</h1>
+			<div class="d-flex flex-wrap justify-content-center">
+				{% for product in products %}
+					{% if product.visible %}
+						<a class="m-1 mx-3 p-3 bg-success-subtle rounded-3 w-25 text-decoration-none text-dark" href="{{ path('products_item', {id:product.id}) }}">
+								<h4>
+									{{ product.name|capitalize }}
+								</h4>
+								<h5>
+									{{ product.category.name|upper }}
+								</h5>
+								<div>
+									{{ product.description }}
+								</div>
+						</a>
+					{% endif %}
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+</div>{% endblock %}

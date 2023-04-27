@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Welcome to the Boutique
+{% endblock %}
+
+{% block body %}
+
+	<div class="bg-secondary">
+		<h1 class="py-2 px-3">Bienvenue sur
+			<span class="text-light">The_Boutique</span>
+		</h1>
+		<h2 class="text-center">Profitez de nos produits en solde en ce moment !</h2>
+		<div class="d-flex flex-wrap justify-content-center">
+			{% for product in products %}
+				{% if product.discount and product.visible %}
+					<div class="p-3 m-1 bg-warning-subtle rounded-3 w-25 ">
+						<h4>
+							{{ product.name|capitalize }}
+						</h4>
+						<h5>
+							Cat :
+							{{ product.category.name|capitalize }}
+						</h5>
+						<div>
+							{{ product.description }}
+						</div>
+						<div>
+							<del class="text-danger">{{ product.getFullPrice() }}€
+							</del>
+						</br>Maintenant seulement
+						<span class="text-success">{{ product.getDiscountedPrice() }}€</span>
+						!
+					</div>
+				</div>
+			{% endif %}
+		{% endfor %}
+	</div>
+{% endblock %}
