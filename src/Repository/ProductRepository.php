@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Product;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -24,11 +25,24 @@ class ProductRepository extends ServiceEntityRepository
     public function findHomepageProducts() : array
     {
         return $this
-        ->getEntityManager()
-        ->createQuery("SELECT p FROM ".Product::class." p WHERE p.visible = 1 AND p.discount = 1 AND p.dateCreated > DATE_SUB(CURRENT_DATE(), 1,'YEAR') ORDER BY p.HTprice")
+        ->createQueryBuilder('p')
+        ->andWhere('p.visible = :visible')
+        ->andWhere('p.discount = :discount')
+        ->andWhere('p.dateCreated > :lastYear')
+        ->setParameter('visible', true)
+        ->setParameter('discount', true)
+        ->setParameter('lastYear', (new DateTime())->modify('-2 year'))
+        ->orderBy('p.HTprice', 'ASC')
         ->setMaxResults(5)
-        // ça c'est le "LIMIT(5)" du DQL
+        ->getQuery()
         ->getResult();
+
+        // return $this
+        // ->getEntityManager()
+        // ->createQuery("SELECT p FROM ".Product::class." p WHERE p.visible = 1 AND p.discount = 1 AND p.dateCreated > DATE_SUB(CURRENT_DATE(), 1,'YEAR') ORDER BY p.HTprice")
+        // ->setMaxResults(5)
+        // // ça c'est le "LIMIT(5)" du DQL
+        // ->getResult();
     }
 
     public function save(Product $entity, bool $flush = false): void

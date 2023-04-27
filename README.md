@@ -17,7 +17,7 @@
     - mise à jour de la consigne : Sur ma page d'accueil je veux les produits :
         - visible
         - en promotion
-        - créés il y a moins d'un an
+        - créés il y a moins d'un an // NB : j'ai changé pour les 2 dernières années parce que sinon je n'avais que 2 produits en promo à afficher
         - ordonnés par prix croissant
         - Limités à 5
 
