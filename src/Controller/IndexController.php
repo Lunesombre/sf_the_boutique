@@ -13,16 +13,10 @@ class IndexController extends AbstractController
     #[Route('/', name: 'app_index')]
     public function index(ProductRepository $productRepository, CategoryRepository $categoryRepository): Response
     {
-        $products = $productRepository->findBy(
-            [
-                'visible' => true,
-                'discount' => true,
-            ],
-            ['HTprice' => 'ASC'],
-            5
-        );
-        $categories = $categoryRepository->findAll();
+        $products = $productRepository->findHomepageProducts();
 
+
+        $categories = $categoryRepository->findAll();
 
         return $this->render('index/index.html.twig', [
             'products' => $products,

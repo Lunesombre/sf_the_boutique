@@ -14,23 +14,25 @@
 			{% for product in products %}
 				{% if product.discount and product.visible %}
 					<div class="p-3 m-1 bg-warning-subtle rounded-3 w-25 ">
-						<h4>
-							{{ product.name|capitalize }}
-						</h4>
-						<h5>
-							Cat :
-							{{ product.category.name|capitalize }}
-						</h5>
-						<div>
-							{{ product.description }}
+						<a class="text-decoration-none text-dark" href="{{ path('products_item', {id:product.id})}}">
+							<h4>
+								{{ product.name|capitalize }}
+							</h4>
+							<h5>
+								Cat :
+								{{ product.category.name|capitalize }}
+							</h5>
+							<div>
+								{{ product.description }}
+							</div>
+							<div>
+								<del class="text-danger">{{ product.getFullPrice() }}€
+								</del>
+							</br>Maintenant seulement
+							<span class="text-success">{{ product.getDiscountedPrice() }}€</span>
+							!
 						</div>
-						<div>
-							<del class="text-danger">{{ product.getFullPrice() }}€
-							</del>
-						</br>Maintenant seulement
-						<span class="text-success">{{ product.getDiscountedPrice() }}€</span>
-						!
-					</div>
+					</a>
 				</div>
 			{% endif %}
 		{% endfor %}

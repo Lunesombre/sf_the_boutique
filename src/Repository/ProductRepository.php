@@ -21,6 +21,16 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
+    public function findHomepageProducts() : array
+    {
+        return $this
+        ->getEntityManager()
+        ->createQuery("SELECT p FROM ".Product::class." p WHERE p.visible = 1 AND p.discount = 1 AND p.dateCreated > DATE_SUB(CURRENT_DATE(), 1,'YEAR') ORDER BY p.HTprice")
+        ->setMaxResults(5)
+        // ça c'est le "LIMIT(5)" du DQL
+        ->getResult();
+    }
+
     public function save(Product $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
