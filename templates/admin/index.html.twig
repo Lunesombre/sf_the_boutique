@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin - products
+{% endblock %}
+
+{% block body %}
+	<div class="container-fluid bg-secondary">
+		<h1 class="text-center">Admin - affichage des produits.</h1>
+		<div class="d-flex flex-wrap justify-content-center">
+			{% for product in products %}
+				<div class="m-2 p-3 bg-warning-subtle w-50">
+					<a class="text-decoration-none text-dark" href="{{ path('admin_product_detail', {id:product.id}) }}">
+						<div class="">
+							Nom du produit :
+							<span class="text-info font-weight-bold">{{ product.name }}</span>
+						</div>
+						<div class="py-2">
+							Description :
+							{{ product.description }}
+						</div>
+						<div>
+							Date de création :
+							{{ product.dateCreated|date('d/m/Y') }}
+						</div>
+						<div>
+							Prix hors-taxe :
+							{{ product.htprice }}
+							€.
+						</div>
+						<div class="">
+							Le produit est il visible en ligne ?
+							{% if product.visible %}
+								<span class="text-success">Oui</span>
+							{% else %}
+								<span class="text-danger">Non</span>
+							{% endif %}
+						</div>
+						<div>
+							Cet article est-il soldé ?
+							{% if product.discount %}
+								<span class="text-success">Oui</span>
+							{% else %}
+								<span class="text-danger">Non</span>
+							{% endif %}
+						</div>
+					</a>
+				</div>
+			{% endfor %}
+		</div>
+	{% endblock %}

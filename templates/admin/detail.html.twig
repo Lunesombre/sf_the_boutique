@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ product.name }}
+{% endblock %}
+
+{% block body %}
+	<div class="container-fluid bg-secondary d-flex justify-content-center">
+		<div class="p-5 w-50">
+			<div class="bg-warning-subtle pb-5 d-flex flex-column align-items-center">
+				<div class="text-center p-3">
+					Nom de l'article :
+					{{ product.name }}
+				</div>
+				<div class="mx-auto w-75 p-3">
+					Description :
+					{{ product.description }}
+				</div>
+				<div class="w-50 p-2 px-3">
+					Article de la catégorie :
+					{{ product.category.name }}.
+				</div>
+				<div class="w-50 p-2 px-3">
+					Date de création :
+					{{ product.dateCreated|date('d-m-Y')}}
+				</div>
+				<div class="w-50 p-2 px-3">
+					<div class="">
+						Le produit est il visible en ligne ?
+						{% if product.visible %}
+							<span class="text-success">Oui</span>
+						{% else %}
+							<span class="text-danger">Non</span>
+						{% endif %}
+					</div>
+					<div>
+						Prix HT :
+						{{ product.htprice }}
+						€
+					</div>
+					<div>
+						Cet article est-il soldé ?
+						{% if product.discount %}
+							<span class="text-success">Oui</span>
+							Prix soldé TTC :
+							{{ product.getDiscountedPrice() }}€
+						{% else %}
+							<span class="text-danger">Non</span>
+						{% endif %}
+					</div>
+					<div class="">
+						Prix TTC non soldé :
+						{{ product.getFullPrice() }}€
+					</div>
+				</div>
+				<button class="d-flex btn btn-info mx-auto my-3 text-end">
+					<a class="text-decoration-none text-dark" href="{{ path('admin_crud_index_products') }}">Retour à l'index admin</a>
+				</button>
+			</div>
+		</div>
+	</div>
+{% endblock %}

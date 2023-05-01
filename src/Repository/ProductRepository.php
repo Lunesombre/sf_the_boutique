@@ -45,6 +45,14 @@ class ProductRepository extends ServiceEntityRepository
         // ->getResult();
     }
 
+    // public function createNewProduct()
+    // {
+    //     return $this
+    //     ->getEntityManager()
+    //     ->createQuery("INSERT INTO p FROM".Product::class." p VALUES (null, :category_id, :name, :description, :prixHT, :visible, :discount, :date_created)")
+    //     ->getResult();
+    // }
+
     public function save(Product $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
