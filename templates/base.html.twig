@@ -18,12 +18,21 @@
 		{% endblock %}
 	</head>
 	<body>
-        {% block navbar%}
-        {% include "navbar.html.twig" %}
-        {% endblock %}
+		{% block navbar%}
+			{% include "navbar.html.twig" %}
+		{% endblock %}
+
+		{# FLASH MESSAGES #}
+		{% for type, messages in app.flashes(['success', 'info', 'warning', 'danger']) %}
+			{% for message in messages %}
+				<div class="alert alert-{{ type }} my-0" role="alert">
+					{{ message }}
+				</div>
+			{% endfor %}
+		{% endfor %}
 
 		{% block body %}
-        test
-        {% endblock %}
+			test
+		{% endblock %}
 	</body>
 </html>
