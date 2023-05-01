@@ -15,8 +15,9 @@
 				{{ product.category.name }}.
 			</div>
 			<div class="text-center">
-				{% if product.visible == false %}
-					Désolé, ce produit n'est actuellement pas disponible à la vente.
+				{% if product.id == false %}
+				{% elseif product.visible == false %}
+					<span class="text-danger">Désolé, ce produit n'est actuellement pas disponible à la vente.</span>
 				{% elseif product.discount %}
 					Produit en solde ! Profitez pour une durée limitée d'un prix réduit de
 					<span class="text-light bg-success">{{ product.getDiscountedPrice() }}€</span>
