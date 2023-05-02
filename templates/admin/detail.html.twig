@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container-fluid bg-secondary d-flex justify-content-center">
+	<div class="container-fluid bg-secondary d-flex justify-content-center py-4">
 		<div class="p-5 w-50">
 			<div class="bg-warning-subtle pb-5 d-flex flex-column align-items-center">
 				<div class="text-center p-3">
@@ -42,14 +42,16 @@
 						Cet article est-il soldé ?
 						{% if product.discount %}
 							<span class="text-success">Oui</span>
-							Prix soldé TTC :
-							{{ product.getDiscountedPrice() }}€
+							<div>
+								Prix soldé TTC :
+								{{ product.getDiscountedPrice() }}€
+							</div>
 						{% else %}
 							<span class="text-danger">Non</span>
 						{% endif %}
 					</div>
 					<div class="">
-						Prix TTC non soldé :
+						Prix non soldé TTC :
 						{{ product.getFullPrice() }}€
 					</div>
 				</div>

@@ -20,19 +20,17 @@
 			<h1 class="py-2 px-3 text-light">Articles disponibles</h1>
 			<div class="d-flex flex-wrap justify-content-center">
 				{% for product in products %}
-					{% if product.visible %}
-						<a class="m-1 mx-3 p-3 bg-success-subtle rounded-3 w-25 text-decoration-none text-dark" href="{{ path('products_item', {id:product.id}) }}">
-								<h4>
-									{{ product.name|capitalize }}
-								</h4>
-								<h5>
-									{{ product.category.name|upper }}
-								</h5>
-								<div>
-									{{ product.description }}
-								</div>
-						</a>
-					{% endif %}
+					<a class="m-1 mx-3 p-3 bg-success-subtle rounded-3 w-25 text-decoration-none text-dark" href="{{ path('products_item', {id:product.id}) }}">
+						<h4>
+							{{ product.name|capitalize }}
+						</h4>
+						<h5>
+							{{ product.category.name|upper }}
+						</h5>
+						<div>
+							{{ product.description }}
+						</div>
+					</a>
 				{% endfor %}
 			</div>
 		</div>
