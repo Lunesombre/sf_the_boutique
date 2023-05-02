@@ -12,6 +12,12 @@
 					Nom de l'article :
 					{{ product.name }}
 				</div>
+				<div class="btn btn-danger my-1">
+					<a class="text-decoration-none text-light" href="{{ path('delete_product', { id:product.id }) }}">Supprimer l'article</a>
+				</div>
+				<div class="btn btn-info my-1">
+					<a class="text-decoration-none text-light " href="{{ path('edit_product', { id:product.id }) }}">Editer l'article</a>
+				</div>
 				<div class="mx-auto w-75 p-3">
 					Description :
 					{{ product.description }}
@@ -56,7 +62,7 @@
 					</div>
 				</div>
 				<button class="d-flex btn btn-info mx-auto my-3 text-end">
-					<a class="text-decoration-none text-dark" href="{{ path('admin_crud_index_products') }}">Retour à l'index admin</a>
+					<a class="text-decoration-none text-dark" href="{{ path('admin_products_crud_list') }}">Retour à l'index admin</a>
 				</button>
 			</div>
 		</div>

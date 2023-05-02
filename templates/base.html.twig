@@ -25,7 +25,7 @@
 		{# FLASH MESSAGES #}
 		{% for type, messages in app.flashes(['success', 'info', 'warning', 'danger']) %}
 			{% for message in messages %}
-				<div class="alert alert-{{ type }} my-0" role="alert">
+				<div class="alert alert-{{ type }} my-0 text-center" role="alert">
 					{{ message }}
 				</div>
 			{% endfor %}

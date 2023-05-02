@@ -3,14 +3,19 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Form\ProductType;
 use App\Repository\ProductRepository;
+use DateTime;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/admin/products')]
 class AdminController extends AbstractController
 {
-    #[Route('/admin/products', name: 'admin_crud_index_products')]
+    #[Route('/', name: 'admin_products_crud_list')]
     public function index(ProductRepository $productRepository): Response
     {
         $products = $productRepository->findAll();
@@ -20,8 +25,59 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/products/{id}',name: 'admin_product_detail')]
-    public function item(Product $product) : Response
+
+    #[Route('/delete/{id}', name: 'delete_product')]
+    public function delete(
+        Product $product,
+        ProductRepository $productRepository
+    ): Response {
+        $productRepository->remove($product, true);
+        $this->addFlash('success', 'Article ' . $product->getName() . ' supprimé conformément à votre demande.');
+        return $this->redirectToRoute('admin_products_crud_list');
+    }
+
+    #[Route('/edit/{id}', name: 'edit_product')]
+    public function edit(
+        Product $product,
+        Request $request,
+        EntityManagerInterface $em
+    ): Response {
+        $form = $this->createForm(ProductType::class, $product);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+            $this->addFlash('success', 'Article mis à jour');
+            return $this->redirectToRoute('admin_products_crud_list');
+        }
+        return $this->renderForm('admin/edit.html.twig', [
+            'form' => $form
+        ]);
+    }
+
+    #[Route('/create', name: 'create_product')]
+    public function create(
+        Request $request,
+        EntityManagerInterface $em
+    ): Response {
+        $product = new Product();
+        $form = $this->createForm(ProductType::class, $product);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $product->setDateCreated(new DateTime());
+            $em->persist($product);
+            $em->flush();
+            $this->addFlash('success', 'Article crée ! Félicitations, beau bébé.');
+            return $this->redirectToRoute('admin_products_crud_list');
+        }
+        return $this->renderForm('admin/create.html.twig', [
+            'form' => $form
+        ]);
+    }
+
+    #[Route('/{id}', name: 'admin_product_detail')]
+    public function item(Product $product): Response
     {
         return $this->render('admin/detail.html.twig', [
             'product' => $product,
