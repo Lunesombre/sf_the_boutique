@@ -44,7 +44,7 @@ class AdminController extends AbstractController
     ): Response {
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
-
+        
         if ($form->isSubmitted() && $form->isValid()) {
             $em->flush();
             $this->addFlash('success', 'Article mis à jour');
@@ -54,7 +54,16 @@ class AdminController extends AbstractController
             'form' => $form
         ]);
     }
+    
+    #[Route('/{id\d+}', name: 'admin_product_detail')]
+    // le \d+ permet de lui dire que j'attend un entier positif, si symfony trouve autre chose, comme la string 'create' ou bien 'new', il va aller chercher ailleurs ce qu'est cette chose plutôt que chercher un produit d'id "create". L'autre solution c'est de passer cette route à la fin, en dessous du create.
 
+    public function item(Product $product): Response
+    {
+        return $this->render('admin/detail.html.twig', [
+            'product' => $product,
+        ]);
+    }
     #[Route('/create', name: 'create_product')]
     public function create(
         Request $request,
@@ -76,11 +85,4 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'admin_product_detail')]
-    public function item(Product $product): Response
-    {
-        return $this->render('admin/detail.html.twig', [
-            'product' => $product,
-        ]);
-    }
 }

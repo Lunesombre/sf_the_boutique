@@ -2,7 +2,7 @@
 
 ## Consignes 
 
-### Vous allez commencer la réalisation d'une boutique en ligne :
+### Réalisation d'une boutique en ligne :
 
 - Cette boutique présentera des produits, chaque produit ayant une catégorie
 
